@@ -1,0 +1,97 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/npecora/.nvm/versions/node/v4.3.1/bin/node',
+1 verbose cli   '/Users/npecora/.nvm/versions/node/v4.3.1/bin/npm',
+1 verbose cli   'publish' ]
+2 info using npm@2.14.12
+3 info using node@v4.3.1
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/npecora/www/MediumButton',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/npecora/.npm/@yoshokatana/medium-button/1.0.0/package.tgz not in flight; packing
+9 verbose tar pack [ '/Users/npecora/.npm/@yoshokatana/medium-button/1.0.0/package.tgz',
+9 verbose tar pack   '/Users/npecora/www/MediumButton' ]
+10 verbose tarball /Users/npecora/.npm/@yoshokatana/medium-button/1.0.0/package.tgz
+11 verbose folder /Users/npecora/www/MediumButton
+12 info prepublish @yoshokatana/medium-button@1.0.0
+13 verbose addLocalTarball adding from inside cache /Users/npecora/.npm/@yoshokatana/medium-button/1.0.0/package.tgz
+14 silly cache afterAdd @yoshokatana/medium-button@1.0.0
+15 verbose afterAdd /Users/npecora/.npm/@yoshokatana/medium-button/1.0.0/package/package.json not in flight; writing
+16 verbose afterAdd /Users/npecora/.npm/@yoshokatana/medium-button/1.0.0/package/package.json written
+17 silly publish { name: '@yoshokatana/medium-button',
+17 silly publish   version: '1.0.0',
+17 silly publish   homepage: 'https://github.com/arcs-/MediumButton',
+17 silly publish   authors: [ 'Patrick Stillhart <patrick@stillhart.biz>' ],
+17 silly publish   description: 'MediumButton extends your Medium Editor with the possibility to add more buttons. (unofficial fork)',
+17 silly publish   main: 'src/MediumButton.js',
+17 silly publish   keywords: [ 'medium', 'editor', 'medium editor' ],
+17 silly publish   license: 'MIT',
+17 silly publish   readme: '# MediumButton\nMediumButton extends your Medium Editor with the possibility to add more buttons.\n\nYou can still use the default buttons, MediumButton will just give you the ability to add more and custom buttons\n\n# Basic usage\n\n![screenshot](https://raw.githubusercontent.com/arcs-/MediumButton/master/demo/screenshot.png)\n\nDemo: [http://stillhart.biz/project/MediumButton/](http://stillhart.biz/project/MediumButton/)\n\n### Installation\n\n* Download the [latest MediumEditor release](https://github.com/daviferreira/medium-editor/releases) \n* Download the [latest MediumButton release](https://github.com/arcs-/MediumButton/releases) \n\n\nThe next step is to reference the scripts\n\n```html\n<script src="js/medium-editor.js"></script>\n<script src="js/MediumButton.min.js"></script>\n```\n\n### Usage\n\nFollow the steps on the [MediumEditor Page](https://github.com/daviferreira/medium-editor)\n\n\nThen you can then setup your custom buttons\n\n#### HTML buttons\n```javascript\n// This creates a buttons which make text bold\n\'b\': new MediumButton({label:\'<b>B</b>\', start:\'<b>\', end:\'</b>\'})\n\nlabel: \'<b>B</b>\', // Button Label: HTML and Font-Awesome is possible  \nstart: \'<b>\',      // Beginning of the selection \nend:   \'</b>\'      // End of the selection \n\n```\n\n#### JavaScript buttons\n```javascript\n// This creates a buttons which makes a popup\n\'pop\': new MediumButton({label:\'<b>Hello</b>\', action: function(html, mark){alert(\'hello\'); return html;}})\n\nlabel: \'<b>Hello</b>\',          //Button Label -> same as in HTML button \n                                //Action can be an javascript function\naction: function(html, mark){   //HTML(String) is the selected Text\n           alert(\'hello\');   //MARK(Boolean) is already marked\n           return html;}        //never forget return new HTML!\n        }\t\t\t\t\t\t  \n\n```\n\n#### Add them to MediumEditor\n```javascript\n // Remember the indicator befor each Button\n // \'pop\': new MediumButto...\n \n // add this to your \'buttons\' just like a normal button\n\n buttons: [\'pop\', \'b\', \'h2\', \'warning\']\n \n // add the code for the button as an extensions\n // seperatet with a " , "\n \n  extensions: {\n        \'b\':  new MediumButton({label:\'BOLD\', start:\'<b>\', end:\'</b>\'}),\n        // ...\n  }     \n \n```\n\nand you\'re done.\n\n## Example\n\nRemember to add a " , " between the buttons\n\n```javascript\nvar editor = new MediumEditor(\'.editor\', {\n    buttons: [\'b\', \'h2\', \'warning\', \'pop\'],\n    extensions: {\n        // compact\n        \'b\':  new MediumButton({label:\'BOLD\', start:\'<b>\', end:\'</b>\'}),\n        \'h2\': new MediumButton({label:\'h2\', start:\'<h2>\', end:\'</h2>\'}),\n\n       // expanded\n       \'warning\': new MediumButton({\n          label: \'<i class="fa fa-exclamation-triangle"></i>\',\n          start: \'<div class="warning">\',\n          end:   \'</div>\'\n       }),\n\t   \n\t// with JavaScript\n       \'pop\': new MediumButton({\n          label:\'POP\', \n          action: function(html, mark){\n                    alert(\'hello :)\'); \n                    return html; \n                  }\n        })\n        \n        \n    }\n});\n\n```\n\n\n### Syntax highlighting\n\nSyntax highlighting is possible but not that easy(for now). You need to add an other Script like Prism or highlight.js. Here is an example for JavaScript with highlight.js.\n\n```javascript\n\'JS\': new MediumButton({\n  label: \'<i>JavaScript</i>\',\n  start: \'<pre><code>\',\n  end: \'</code></pre>\',\n  action: function(html, mark){\n            if(mark) return \'<!--\'+html+\'-->\' + hljs.highlight(\'javascript\', html.substring(3, html.length - 4).replace(/<\\/p><p>/g, "\\n").replace(/</g, "<").replace(/>/g, ">")).value;\n            return html.split(\'-->\')[0].split(\'<!--\').join(\'\');\n          }\n})\n```\n',
+17 silly publish   readmeFilename: 'README.md',
+17 silly publish   gitHead: '157d945146132bb1f2fc14a57ba665d76baf1025',
+17 silly publish   _id: '@yoshokatana/medium-button@1.0.0',
+17 silly publish   scripts: {},
+17 silly publish   _shasum: 'f6282206088531d5c2a87bf569d63d6446f52679',
+17 silly publish   _from: '.' }
+18 verbose getPublishConfig undefined
+19 silly mapToRegistry name @yoshokatana/medium-button
+20 silly mapToRegistry scope (from package name) @yoshokatana
+21 verbose mapToRegistry no registry URL found in name for scope @yoshokatana
+22 silly mapToRegistry using default registry
+23 silly mapToRegistry registry https://registry.npmjs.org/
+24 silly mapToRegistry uri https://registry.npmjs.org/@yoshokatana%2fmedium-button
+25 verbose publish registryBase https://registry.npmjs.org/
+26 silly publish uploading /Users/npecora/.npm/@yoshokatana/medium-button/1.0.0/package.tgz
+27 verbose request uri https://registry.npmjs.org/@yoshokatana%2fmedium-button
+28 verbose request sending authorization for write operation
+29 info attempt registry request try #1 at 12:56:28 PM
+30 verbose request using bearer token for auth
+31 verbose request id c7ee58b6f337441b
+32 http request PUT https://registry.npmjs.org/@yoshokatana%2fmedium-button
+33 http 404 https://registry.npmjs.org/@yoshokatana%2fmedium-button
+34 verbose headers { 'content-type': 'application/json',
+34 verbose headers   'cache-control': 'max-age=0',
+34 verbose headers   'content-length': '21',
+34 verbose headers   'accept-ranges': 'bytes',
+34 verbose headers   date: 'Fri, 08 Jul 2016 16:56:30 GMT',
+34 verbose headers   via: '1.1 varnish',
+34 verbose headers   connection: 'keep-alive',
+34 verbose headers   'x-served-by': 'cache-iad2143-IAD',
+34 verbose headers   'x-cache': 'MISS',
+34 verbose headers   'x-cache-hits': '0',
+34 verbose headers   'x-timer': 'S1467996988.867093,VS0,VE1637' }
+35 verbose request invalidating /Users/npecora/.npm/registry.npmjs.org/_40yoshokatana_252fmedium-button on PUT
+36 error publish Failed PUT 404
+37 verbose stack Error: Not found : @yoshokatana/medium-button
+37 verbose stack     at makeError (/Users/npecora/.nvm/versions/node/v4.3.1/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+37 verbose stack     at CachingRegistryClient.<anonymous> (/Users/npecora/.nvm/versions/node/v4.3.1/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:252:14)
+37 verbose stack     at Request._callback (/Users/npecora/.nvm/versions/node/v4.3.1/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+37 verbose stack     at Request.self.callback (/Users/npecora/.nvm/versions/node/v4.3.1/lib/node_modules/npm/node_modules/request/request.js:198:22)
+37 verbose stack     at emitTwo (events.js:87:13)
+37 verbose stack     at Request.emit (events.js:172:7)
+37 verbose stack     at Request.<anonymous> (/Users/npecora/.nvm/versions/node/v4.3.1/lib/node_modules/npm/node_modules/request/request.js:1082:10)
+37 verbose stack     at emitOne (events.js:82:20)
+37 verbose stack     at Request.emit (events.js:169:7)
+37 verbose stack     at IncomingMessage.<anonymous> (/Users/npecora/.nvm/versions/node/v4.3.1/lib/node_modules/npm/node_modules/request/request.js:1009:12)
+38 verbose statusCode 404
+39 verbose pkgid @yoshokatana/medium-button
+40 verbose cwd /Users/npecora/www/MediumButton
+41 error Darwin 15.5.0
+42 error argv "/Users/npecora/.nvm/versions/node/v4.3.1/bin/node" "/Users/npecora/.nvm/versions/node/v4.3.1/bin/npm" "publish"
+43 error node v4.3.1
+44 error npm  v2.14.12
+45 error code E404
+46 error 404 Not found : @yoshokatana/medium-button
+46 error 404
+46 error 404 '@yoshokatana/medium-button' is not in the npm registry.
+46 error 404 You should bug the author to publish it (or use the name yourself!)
+46 error 404
+46 error 404 Note that you can also install from a
+46 error 404 tarball, folder, http url, or git url.
+47 verbose exit [ 1, true ]

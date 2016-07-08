@@ -1,0 +1,22 @@
+{
+  "name": "@yoshokatana/medium-button",
+  "version": "1.0.0",
+  "homepage": "https://github.com/arcs-/MediumButton",
+  "author": "Patrick Stillhart",
+  "description": "MediumButton extends your Medium Editor with the possibility to add more buttons. (unofficial fork)",
+  "main": "src/MediumButton.js",
+  "keywords": [
+    "medium",
+    "editor",
+    "medium editor"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arcs-/MediumButton"
+  },
+  "bugs": {
+    "url": "https://github.com/arcs-/MediumButton/issues"
+  },
+  "homepage": "https://github.com/arcs-/MediumButton"
+}
